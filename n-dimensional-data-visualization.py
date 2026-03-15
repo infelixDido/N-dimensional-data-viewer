@@ -72,8 +72,8 @@ def project_points_to_three_dimensions(
         padding = np.zeros((points.shape[0], 3 - points.shape[1]))
         points = np.hstack((points, padding))
 
+    orthonormal_basis = np.eye(points.shape[1])[dimensions]
     if projection_type == "subspace_project":
-        orthonormal_basis = np.eye(points.shape[1])[dimensions]
         projected = subspace_project(points, orthonormal_basis)
     elif projection_type == "slice_project":
         sliced = slice_project(points, orthonormal_basis, tolerance=0.2)
@@ -103,7 +103,7 @@ sierpinski_triangle_vertices = (
 )
 
 points = generate_chaos_game_fractal(sierpinski_triangle_vertices, 10000)
-points = slice_project(points, np.eye(3, 4), 0.2, np.array([0, 0, 0, 1.25]))
+points = slice_project(points, np.eye(3, 4), 0.2)
 
 # Scatter Plot Settings
 
