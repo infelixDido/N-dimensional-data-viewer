@@ -71,7 +71,6 @@ def project_points_to_three_dimensions(
     if points.shape[1] < 3:
         padding = np.zeros((points.shape[0], 3 - points.shape[1]))
         points = np.hstack((points, padding))
-
     orthonormal_basis = np.eye(points.shape[1])[dimensions]
     if projection_type == "subspace_project":
         projected = subspace_project(points, orthonormal_basis)
@@ -108,6 +107,8 @@ points = slice_project(points, np.eye(3, 4), 0.2)
 # Scatter Plot Settings
 
 BACKGROUND_COLOR = "#111111"
+POINTS_COLOR = "#ff71ff"
+POINTS_SIZE: int = 1
 
 fig = plt.figure()
 ax: Axes3D = fig.add_subplot(projection="3d")
@@ -116,7 +117,8 @@ ax.scatter(
     *project_points_to_three_dimensions(
         points, dimensions=DISPLAYED_DIMENSIONS, projection_type="stereographic_project"
     ),
-    s=1,
+    s=POINTS_SIZE,
+    c=POINTS_COLOR,
 )
 
 
